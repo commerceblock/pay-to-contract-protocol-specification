@@ -10,13 +10,7 @@
   Created: 2017-07-17
 </pre>
 
-
----
-
 * 999 is a temporary BIP number.
-
----
-
 
 ==Abstract==
 

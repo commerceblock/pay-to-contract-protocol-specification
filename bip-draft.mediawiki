@@ -11,7 +11,7 @@
 </pre>
 
 ---
-**NOTE**
+__NOTE__
 
 999 is a temporary BIP number.
 

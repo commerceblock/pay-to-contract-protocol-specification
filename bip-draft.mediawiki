@@ -10,12 +10,13 @@
   Created: 2017-07-17
 </pre>
 
----
-__NOTE__
-
-999 is a temporary BIP number.
 
 ---
+
+* 999 is a temporary BIP number.
+
+---
+
 
 ==Abstract==
 

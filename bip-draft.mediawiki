@@ -59,16 +59,15 @@ Hardened derivation is used at this level
 
 ===Contract Id===
 
-Contract id is an arbitrary number within the valid range of indices as defined in BIP32.
-The contract id derivation level produces an extended public key and its associated extended private key.
+Contract id is an arbitrary number within the valid range of indices as defined in BIP32. the derivation level produces an extended public key and its associated extended private key.
 
 Hardened derivation is used at this level.
 
-==Contract Path Derivation===
+===Contract Path Derivation===
 
 TODO
 
-==Contract Path Verification===
+===Contract Path Verification===
 
 TODO
 

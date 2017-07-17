@@ -27,7 +27,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ==Motivation==
 
-Leveraging the HD algorithm as described in BIP32 as a hidden storage on the blockchain, this method has a few main advantages, it's off-chain storage, which gives high degree of efficiency and privacy over the existing solutions, second it's cryptocurrency agnostic, which opens the door to a lot more applications in variety of digital assets, third the cryptographic signatures are encoded as part address, in other words, the data stored in the UTXO set.
+Leveraging the HD algorithm as described in BIP32 as a hidden storage on the blockchain to store cryptographic signatures, while maintaining high levels of privacy, efficiency, and interoperability. in terms of privacy, transactions that use this method are undetectable and structurally identical to regular transactions.
+in terms of efficiency, the cryptographic signatures are encoded as part address, the data stored in the UTXO set, hence usage of this method has no additional cost over regular transaction. in terms of interoperability, this scheme is a cryptocurrency agnostic, this opens the door to a lot more applications in variety of digital assets.
 
 ==Specification==
 

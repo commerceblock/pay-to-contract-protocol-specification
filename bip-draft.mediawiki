@@ -1,0 +1,80 @@
+<pre>
+  BIP: 999
+  Layer: Applications
+  Title: Out of Band Colored Coins Protocol
+  Author: TODO
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-0999
+  Status: Draft
+  Type: Standards Track or Informational Track
+  Created: 2017-07-17
+</pre>
+
+*** 999 is a temporary BIP number.
+
+==Abstract==
+
+This BIP defines a scheme for storing cryptographic signatures based on the hierarchical deterministic wallets (HD from now on) algorithm.
+described in BIP-0032 (BIP32 from now on) and purpose scheme described in
+BIP-0043 (BIP43 from now on).
+This BIP is a particular application of BIP43.
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+==Motivation==
+
+Leveraging the HD algorithm as described in BIP32 as a hidden storage on the blockchain, this method has a few main advantages, it's off-chain storage, which gives high degree of efficiency and privacy over the existing solutions, second it's cryptocurrency agnostic, which opens the door to a lot more applications in variety of digital assets, third the cryptographic signatures are encoded as part address, in other words, the data stored in the UTXO set.
+
+==Specification==
+
+We define the following levels in BIP32 path:
+
+<code>
+m / purpose' / coin_type' / contract_id' / *
+</code>
+
+Apostrophe in the path indicates that BIP32 hardened derivation is used.
+
+Each level has special meaning described in the chapters below.
+
+===Purpose===
+
+Purpose is a constant set to 47' (or 0x800003E7) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification.
+
+<code>
+m / 999' / *
+</code>
+
+Hardened derivation is used at this level.
+
+===Coin type===
+
+The coin type field is identical to the same field in BIP44
+
+Hardened derivation is used at this level
+
+===Contract Id===
+
+Contract id is an arbitrary number within the valid range of indices as defined in BIP32.
+The contract id derivation level produces an extended public key and its associated extended private key.
+
+Hardened derivation is used at this level.
+
+==Contract Path Derivation===
+
+TODO
+
+==Contract Path Verification===
+
+TODO
+
+==Examples==
+
+TODO
+
+==Reference==
+
+* [[bip-0032.mediawiki|BIP32 - Hierarchical Deterministic Wallets]]
+* [[bip-0043.mediawiki|BIP43 - Purpose Field for Deterministic Wallets]]
+* [[bip-0044.mediawiki|BIP44 - Multi-Account Hierarchy for Deterministic Wallets]]
+* [[https://arxiv.org/abs/1212.3257|Homomorphic Payment Addresses and the Pay-to-Contract Protocol]]

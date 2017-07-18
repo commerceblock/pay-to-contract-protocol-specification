@@ -60,17 +60,171 @@ Contract id is an arbitrary number within the valid range of indices as defined 
 
 Hardened derivation is used at this level.
 
-===Contract Path Derivation===
+===Contract Base Derivation===
 
-TODO
+Contact base is the the public part of address, which is for given `coin_type` and `contract_id` is derived by following formula:
 
-===Contract Path Verification===
+<code>
+m / 999' / coin_type' / contract_id'
+</code>
 
-TODO
+====Hash to Partial Derivation Path Mapping===
+
+At this section, we define hash to partial BIP32 derivation path mapping (HTPDM from now on) that maps between arbitrary hash to partial BIP32 derivation path.
+
+For a given hash, do the following:
+
+1. Convert hash to binary array.
+
+2. Partition the array into parts, each part length should be 16.
+
+3. Convert each part to integer in decimal format.
+
+4. Convert each integer to string.
+
+5. Join all strings with slash `/`.
+
+===Contract Address Generation===
+
+For a given contract documents denoted by `c-1,...,c-n`, contract base extended public key denoted by `contract_base-pub`, and cryptographic hash function denoted by `h`.
+
+1. compute cryptographic signatures for all contract documents, by applying the hash function.
+<code>
+h(c-1),...,h(c-n)
+</code>
+
+2. sort all signatures lexicographically.
+<code>
+h(c-1)',...,h(c-n)'
+</code>
+
+3. Map every signature to partial BIP32 derivation path by applying HTPDM.
+<code>
+p1',...,pn'
+</code>
+
+4. Join all partial paths with slash `/`.
+<code>
+p1'/.../pn'
+</code>
+
+5. Prepend contract base.
+<code>
+contract_base-pub/p1'/.../pn'
+</code>
+
+6. Compute public extended key from the derivation path in step 5.
+
+7.  Compute address of the public extended key (P2PKH) from step 6.
+
+===Contract Address Verification===
+
+For a given Bitcoin address, contract base extended public key denoted by `contract_base-pub`, contract documents denoted by `c-1,...,c-n`, and cryptographic hash function denoted by `h`, we can verify the integrity of the address by the following steps:
+
+1. Compute commitment derivation as described in section `Contract Commitment Derivation`.
+
+2. Compute extended pub key of the derivation from step 1 as defined in BIP32.
+
+3. Compute address of the public extended key (P2PKH) from step 2.
+
+4. Compare the computed address from step 3 with the given Bitcoin address.
 
 ==Examples==
 
-TODO
+For the following given inputs:
+<code>
+master private extended key: xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
+coin type: 0
+contract id: 7777777
+</code>
+
+we can compute contract base as follows:
+
+<code>
+derivation path: m/999'/0'/7777777'
+contract base public extended key: xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE
+</code>
+
+In the below examples, we going to use SHA256 as a cryptographic hash function, and the above contract base public key.
+
+contract address generation:
+
+As an input, we have a contract that consists two documents, below are contents:
+
+document 1:
+<code>
+bar
+</code>
+
+document 2:
+<code>
+foo
+</code>
+
+first, apply the hash function:
+
+<code>
+fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
+</code>
+
+<code>
+2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+</code>
+
+second, sort all signatures lexicographically:
+
+<code>
+2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
+</code>
+
+third, map to partial derivation paths by applying (HTPDM):
+<code>
+11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310
+64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
+</code>
+
+forth, join partial paths:
+<code>
+11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310/64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
+</code>
+
+fifth, compute child public key:
+<code>
+xpub7EtARQ7EPnCLNDWPy4QDJn2gyJViLzDiZF3VLeZeUQAMiq21GWvtSmnutwWv6sfEbWNJQukYgMz2GLyiWpWC2AbLSziz345gDwVDigN4EBE
+</code>
+
+lastly, compute address:
+<code>
+19gcjDDzBoDBAieh9kZvFQFSbcLWkcpoVo
+</code>
+
+verification example 1 (negative test):
+
+As an input, we have a contract that consists two documents, below are contents:
+
+document 1:
+<code>
+baz
+</code>
+
+first, apply the hash function:
+
+<code>
+baa5a0964d3320fbc0c6a922140453c8513ea24ab8fd0577034804a967248096
+</code>
+
+second, compute the partial derivation path:
+<code>
+47781/41110/19763/8443/49350/43298/5124/21448/20798/41546/47357/1399/840/1193/26404/32918
+</code>
+
+third, compute address:
+<code>
+16yfhaGao2QCJKwmMxVbPYkSnts25iLaza
+</code>
+
+Address matching failed as expected, verification will only succeed if we use the same documents that we use for the address generation.
 
 ==Reference==
 

@@ -232,3 +232,7 @@ Address matching failed as expected, verification will only succeed if we use th
 * [[bip-0043.mediawiki|BIP43 - Purpose Field for Deterministic Wallets]]
 * [[bip-0044.mediawiki|BIP44 - Multi-Account Hierarchy for Deterministic Wallets]]
 * [[https://arxiv.org/abs/1212.3257|Homomorphic Payment Addresses and the Pay-to-Contract Protocol]]
+
+==Copyright==
+
+This document is placed in the public domain.

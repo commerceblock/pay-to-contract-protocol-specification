@@ -1,7 +1,7 @@
 <pre>
   BIP: 999
   Layer: Applications
-  Title: Out of Band Colored Coins Protocol
+  Title: Pay to Contract Protocol
   Author: TODO
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-0999

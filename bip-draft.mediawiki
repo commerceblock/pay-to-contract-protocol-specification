@@ -68,7 +68,7 @@ Contact base is the the public part of address, which is for given `coin_type` a
 m / 999' / coin_type' / contract_id'
 </code>
 
-====Hash to Partial Derivation Path Mapping===
+===Hash to Partial Derivation Path Mapping===
 
 At this section, we define hash to partial BIP32 derivation path mapping (HTPDM from now on) that maps between arbitrary hash to partial BIP32 derivation path.
 

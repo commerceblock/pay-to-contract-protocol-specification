@@ -2,7 +2,7 @@
   BIP: 999
   Layer: Applications
   Title: Pay to Contract Protocol
-  Author: TODO
+  Author: Omar Shibli <omar@commerceblock.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-0999
   Status: Draft

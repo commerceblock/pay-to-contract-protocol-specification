@@ -142,7 +142,6 @@ As an input, we have a contract that consists of two documents, below are conten
 
   document 1:
   bar
-
   document 2:
   foo
 
@@ -150,7 +149,6 @@ As an input, we have a contract that consists of two documents, below are conten
 
   document 1:
   fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
-
   document 2:
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
 
@@ -164,7 +162,6 @@ As an input, we have a contract that consists of two documents, below are conten
 
   concatenated hash:
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7aefcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
-
   combined signature:
   ec321de56af3b66fb49e89cfe346562388af387db689165d6f662a3950286a57
 

@@ -122,10 +122,8 @@ For the following given inputs:
 
   master private extended key:
   xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
-  
   coin type:
   0
-
   contract id:
   7777777
 
@@ -133,7 +131,6 @@ we can compute contract base as follows:
 
   derivation path:
   m/999'/0'/7777777'
-
   contract base public extended key:
   xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE
 

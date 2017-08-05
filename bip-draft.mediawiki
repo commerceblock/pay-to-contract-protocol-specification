@@ -76,7 +76,7 @@ For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, cont
 
 2. sort all signatures lexicographically.
 
-  s1,...,sn'
+  s1,...,sn
 
 3. concatenate the sorted signatures and apply the hash function.
 

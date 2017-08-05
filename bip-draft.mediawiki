@@ -1,8 +1,9 @@
 <pre>
-  BIP: 999
+  BIP: 999*
   Layer: Applications
   Title: Pay to Contract Protocol
   Author: Omar Shibli <omar@commerceblock.com>
+          Nicholas Gregory <nicholas@commerceblock.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-0999
   Status: Draft
@@ -10,21 +11,19 @@
   Created: 2017-07-17
 </pre>
 
-* 999 is a temporary BIP number.
+\* 999 is a temporary BIP number.
 
 ==Abstract==
 
-This BIP defines a scheme for storing cryptographic signatures based on the hierarchical deterministic wallets (HD from now on) algorithm.
-described in BIP-0032 (BIP32 from now on) and purpose scheme described in
-BIP-0043 (BIP43 from now on).
+This document describes a key derivation scheme based on hierarchical deterministic wallets as described in BIP-0032 (BIP32 from now on) and the "Purpose Field" in BIP-0032 BIP-0043 (BIP43 from now on).
 This BIP is a particular application of BIP43.
+
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
 
 ==Motivation==
 
-Leveraging the HD algorithm as described in BIP32 as a hidden storage on the blockchain to store cryptographic signatures, while maintaining high levels of privacy, efficiency, and interoperability. in terms of privacy, transactions that use this method are undetectable and structurally identical to regular transactions.
-in terms of efficiency, the cryptographic signatures are encoded as part address, the data stored in the UTXO set, hence usage of this method has no additional cost over regular transaction. in terms of interoperability, this scheme is a cryptocurrency agnostic, this opens the door to a lot more applications in variety of digital assets.
+A Bitcoin transaction represents a "real world" contract between two parties to transfer value. The payer may want cryptographic proof that the payee has agreed to the terms of this contract. Using the technique described in this BIP, an address can be provably derived from the terms of a contract in a completely hidden manner which does not bloat the UTXO. This schema can also be used as a foundation for a variety of protocols, such as advanced color coin schemes.
 
 ==Specification==
 
@@ -40,7 +39,7 @@ Each level has special meaning described in the chapters below.
 
 ===Purpose===
 
-Purpose is a constant set to 47' (or 0x800003E7) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification.
+Purpose is a constant set to 999' (or 0x800003E7) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification.
 
 <code>
 m / 999' / *
@@ -50,84 +49,78 @@ Hardened derivation is used at this level.
 
 ===Coin type===
 
-The coin type field is identical to the same field in BIP44
+The coin type field is identical to the same field in BIP-0044.
 
-Hardened derivation is used at this level
+Hardened derivation is used at this level.
 
 ===Contract Id===
 
-Contract id is an arbitrary number within the valid range of indices as defined in BIP32. the derivation level produces an extended public key and its associated extended private key.
+Contract id is an arbitrary number within the valid range of indices as defined in BIP32.
 
 Hardened derivation is used at this level.
 
 ===Contract Base Derivation===
 
-Contact base is the the public part of address, which is for given `coin_type` and `contract_id` is derived by following formula:
+Contact base is the the public part of address, which is for a given `coin_type` and `contract_id` is derived by following path:
 
 <code>
 m / 999' / coin_type' / contract_id'
 </code>
 
-===Hash to Partial Derivation Path Mapping===
-
-At this section, we define hash to partial BIP32 derivation path mapping (HTPDM from now on) that maps between arbitrary hash to partial BIP32 derivation path.
-
-For a given hash, do the following:
-
-1. Convert hash to binary array.
-
-2. Partition the array into parts, each part length should be 16.
-
-3. Convert each part to integer in decimal format.
-
-4. Convert each integer to string.
-
-5. Join all strings with slash `/`.
-
 ===Contract Address Generation===
 
-For a given contract documents denoted by `c-1,...,c-n`, contract base extended public key denoted by `contract_base-pub`, and cryptographic hash function denoted by `h`.
+For a given contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, contract base extended public key denoted by `contract_base_pub`, and cryptographic hash function denoted by `h`.
 
 1. compute cryptographic signatures for all contract documents, by applying the hash function.
 <code>
-h(c-1),...,h(c-n)
+h(c<sub>1</sub>),...,h(c<sub>n</sub>)
 </code>
 
 2. sort all signatures lexicographically.
 <code>
-h(c-1)',...,h(c-n)'
+s<sub>1</sub>,...,s<sub>n</sub>'
 </code>
 
-3. Map every signature to partial BIP32 derivation path by applying HTPDM.
+3. concatenate the sorted signatures and apply the hash function.
 <code>
-p1',...,pn'
+h(s<sub>1</sub>+...+s<sub>n</sub>)
 </code>
 
-4. Join all partial paths with slash `/`.
+4. Map the combined signature s<sub>all</sub> to a partial BIP32 derivation path as defined in Hash to Partial Derivation Path Mapping procedure below.
 <code>
-p1'/.../pn'
+contract_signature
 </code>
 
-5. Prepend contract base.
+5. Prepend contract base to `contract_signature`.
 <code>
-contract_base-pub/p1'/.../pn'
+contract_base_pub / contract_signature
+or
+m / 999' / coin_type' / contract_id' / contract_signature
 </code>
 
 6. Compute public extended key from the derivation path in step 5.
 
-7.  Compute address of the public extended key (P2PKH) from step 6.
+7. Compute address of the public extended key (P2PKH) from step 6.
 
 ===Contract Address Verification===
 
-For a given Bitcoin address, contract base extended public key denoted by `contract_base-pub`, contract documents denoted by `c-1,...,c-n`, and cryptographic hash function denoted by `h`, we can verify the integrity of the address by the following steps:
+For a given Bitcoin address, contract base extended public key denoted by `contract_base_pub`, contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, and cryptographic hash function denoted by `h`, we can verify the integrity of the address by the following steps:
 
-1. Compute commitment derivation as described in section `Contract Commitment Derivation`.
+1. Compute contract address as described in `Contract Address Generation` section.
 
-2. Compute extended pub key of the derivation from step 1 as defined in BIP32.
+2. Compare the computed address from step 2 with the given Bitcoin address.
 
-3. Compute address of the public extended key (P2PKH) from step 2.
+===Hash to Partial Derivation Path Mapping===
 
-4. Compare the computed address from step 3 with the given Bitcoin address.
+At this section, we define hash to partial BIP32 derivation path mapping procedure that maps between an arbitrary hex number to a partial BIP32 derivation path.
+
+For a given number, do the following:
+
+1. Partition the number into parts, each part length should be 16.
+
+2. Convert each part to integer in decimal format.
+
+3. Concatenate all numbers with slash `/`.
 
 ==Examples==
 

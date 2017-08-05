@@ -129,7 +129,7 @@ For the following given inputs:
 
 we can compute contract base as follows:
 
-  derivation path:
+  contract base derivation path:
   m/999'/0'/7777777'
   contract base public extended key:
   xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE

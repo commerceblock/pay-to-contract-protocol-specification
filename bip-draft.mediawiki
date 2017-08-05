@@ -16,8 +16,8 @@
 ==Abstract==
 
 This document describes a key derivation scheme based on hierarchical deterministic wallets as described in BIP-0032 (BIP32 from now on) and the "Purpose Field" in BIP-0032 BIP-0043 (BIP43 from now on).
-This BIP is a particular application of BIP43.
 
+This BIP is a particular application of BIP43.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
 

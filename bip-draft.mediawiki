@@ -82,11 +82,11 @@ For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, cont
 
   h(s1+...+sn)
 
-4. Map the combined signature s<sub>all</sub> to a partial BIP32 derivation path as defined in Hash to Partial Derivation Path Mapping procedure below.
+4. Compute a partial BIP32 derivation path from the combined signature s<sub>all</sub> as defined in Hash to Partial Derivation Path Mapping procedure below.
 
   contract_signature
 
-5. Prepend contract_base<sub>pub</sub> to contract_signature.
+5. Prepend contract_base<sub>pub</sub> to contract_signature derivation path.
 
   contract_base_pub / contract_signature
   or

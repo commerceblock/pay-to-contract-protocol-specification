@@ -1,5 +1,5 @@
 <pre>
-  BIP: 999&ast;
+  BIP: 999*
   Layer: Applications
   Title: Pay to Contract Protocol
   Author: Omar Shibli <omar@commerceblock.com>

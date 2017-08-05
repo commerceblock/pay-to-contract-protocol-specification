@@ -39,7 +39,7 @@ Each level has special meaning described in the chapters below.
 
 ===Purpose===
 
-Purpose is a constant set to 999' (or 0x800003E7) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification.
+Purpose is a constant set to `999'`` (or `0x800003E7`) following the BIP43 recommendation. It indicates that the subtree of this node is used according to this specification.
 
 <code>
 m / 999' / *
@@ -69,31 +69,36 @@ m / 999' / coin_type' / contract_id'
 
 ===Contract Address Generation===
 
-For a given contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, contract base extended public key denoted by `contract_base_pub`, and cryptographic hash function denoted by `h`.
+For a given contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, contract base extended public key denoted by `contract_base<sub>pub</sub>`, and cryptographic hash function denoted by `h`.
 
 1. compute cryptographic signatures for all contract documents, by applying the hash function.
+
 <code>
 h(c<sub>1</sub>),...,h(c<sub>n</sub>)
 </code>
 
 2. sort all signatures lexicographically.
+
 <code>
 s<sub>1</sub>,...,s<sub>n</sub>'
 </code>
 
 3. concatenate the sorted signatures and apply the hash function.
+
 <code>
 h(s<sub>1</sub>+...+s<sub>n</sub>)
 </code>
 
 4. Map the combined signature s<sub>all</sub> to a partial BIP32 derivation path as defined in Hash to Partial Derivation Path Mapping procedure below.
+
 <code>
 contract_signature
 </code>
 
 5. Prepend contract base to `contract_signature`.
+
 <code>
-contract_base_pub / contract_signature
+contract_base<sub>pub</sub> / contract_signature
 or
 m / 999' / coin_type' / contract_id' / contract_signature
 </code>
@@ -104,7 +109,7 @@ m / 999' / coin_type' / contract_id' / contract_signature
 
 ===Contract Address Verification===
 
-For a given Bitcoin address, contract base extended public key denoted by `contract_base_pub`, contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, and cryptographic hash function denoted by `h`, we can verify the integrity of the address by the following steps:
+For a given Bitcoin address, contract base extended public key denoted by `contract_base<sub>pub</sub>`, contract documents denoted by `c<sub>1</sub>,...,c<sub>n</sub>`, and cryptographic hash function denoted by `h`, we can verify the integrity of the address by the following steps:
 
 1. Compute contract address as described in `Contract Address Generation` section.
 
@@ -125,6 +130,7 @@ For a given number, do the following:
 ==Examples==
 
 For the following given inputs:
+
 <code>
 master private extended key: xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
 coin type: 0
@@ -145,11 +151,13 @@ contract address generation:
 As an input, we have a contract that consists two documents, below are contents:
 
 document 1:
+
 <code>
 bar
 </code>
 
 document 2:
+
 <code>
 foo
 </code>

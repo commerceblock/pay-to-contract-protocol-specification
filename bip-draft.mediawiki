@@ -1,5 +1,5 @@
 <pre>
-  BIP: 999*
+  BIP: 999&ast;
   Layer: Applications
   Title: Pay to Contract Protocol
   Author: Omar Shibli <omar@commerceblock.com>
@@ -11,7 +11,7 @@
   Created: 2017-07-17
 </pre>
 
-\* 999 is a temporary BIP number.
+&ast; 999 is a temporary BIP number.
 
 ==Abstract==
 

@@ -63,45 +63,34 @@ Hardened derivation is used at this level.
 
 Contact base is the the public part of address, which is for a given <code>coin_type</code> and <code>contract_id</code> is derived by following path:
 
-<code>
-m / 999' / coin_type' / contract_id'
-</code>
+  m / 999' / coin_type' / contract_id'
+
 
 ===Contract Address Generation===
 
-For a given contract documents denoted by <code>c<sub>1</sub>,...,c<sub>n</sub></code>, contract base extended public key denoted by <code>contract_base<sub>pub</sub></code>, and cryptographic hash function denoted by <code>h</code>.
+For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, contract base extended public key denoted by contract_base<sub>pub</sub></code>, and cryptographic hash function denoted by <code>h</code>.
 
 1. compute cryptographic signatures for all contract documents, by applying the hash function.
 
-<code>
-h(c<sub>1</sub>),...,h(c<sub>n</sub>)
-</code>
+  h(c1),...,h(cn)
 
 2. sort all signatures lexicographically.
 
-<code>
-s<sub>1</sub>,...,s<sub>n</sub>'
-</code>
+  s1,...,sn'
 
 3. concatenate the sorted signatures and apply the hash function.
 
-<code>
-h(s<sub>1</sub>+...+s<sub>n</sub>)
-</code>
+  h(s1+...+sn)
 
 4. Map the combined signature s<sub>all</sub> to a partial BIP32 derivation path as defined in Hash to Partial Derivation Path Mapping procedure below.
 
-<code>
-contract_signature
-</code>
+  contract_signature
 
-5. Prepend <code>contract_base<sub>pub</sub></code> to <code>contract_signature</code>.
+5. Prepend contract_base<sub>pub</sub> to contract_signature.
 
-<code>
-contract_base<sub>pub</sub> / contract_signature
-or
-m / 999' / coin_type' / contract_id' / contract_signature
-</code>
+  contract_base_pub / contract_signature
+  or
+  m / 999' / coin_type' / contract_id' / contract_signature
 
 6. Compute public extended key from the derivation path in step 5.
 
@@ -109,11 +98,11 @@ m / 999' / coin_type' / contract_id' / contract_signature
 
 ===Contract Address Verification===
 
-For a given Bitcoin address, contract base extended public key denoted by <code>contract_base<sub>pub</sub></code>, contract documents denoted by <code>c<sub>1</sub>,...,c<sub>n</sub></code>, and cryptographic hash function denoted by <code>h</code>, we can verify the integrity of the address by the following steps:
+For a given Bitcoin address, contract base extended public key denoted by contract_base<sub>pub</sub>, contract documents denoted by c<sub>1</sub>,...,c<sub>n</sub>, and cryptographic hash function denoted by <code>h</code>, we can verify the integrity of the address by the following steps:
 
-1. Compute contract address as described in Contract Address Generation section.
+1. Compute contract address from the given inputs as described in Contract Address Generation section.
 
-2. Compare the computed address from step 2 with the given Bitcoin address.
+2. Compare the computed address from step 1 with the given Bitcoin address as an input.
 
 ===Hash to Partial Derivation Path Mapping===
 
@@ -131,101 +120,82 @@ For a given number, do the following:
 
 For the following given inputs:
 
-<code>
-master private extended key: xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
-coin type: 0
-contract id: 7777777
-</code>
+  master private extended key: xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
+  coin type: 0
+  contract id: 7777777
 
 we can compute contract base as follows:
 
-<code>
-derivation path: m/999'/0'/7777777'
-contract base public extended key: xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE
-</code>
+  derivation path: m/999'/0'/7777777'
+  contract base public extended key: xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE
 
-In the below examples, we going to use SHA256 as a cryptographic hash function, and the above contract base public key.
+In the below examples, we are going to use SHA256 as a cryptographic hash function, and the above contract base public key.
 
 contract address generation:
 
 As an input, we have a contract that consists two documents, below are contents:
 
-document 1:
+  document 1:
+  bar
 
-<code>
-bar
-</code>
-
-document 2:
-
-<code>
-foo
-</code>
+  document 2:
+  foo
 
 first, apply the hash function:
 
-<code>
-fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
-</code>
+  document 1:
+  fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 
-<code>
-2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
-</code>
+  document 2:
+  2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+
 
 second, sort all signatures lexicographically:
 
-<code>
-2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
-fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
-</code>
+  2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
+  fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 
 third, map to partial derivation paths by applying (HTPDM):
-<code>
-11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310
-64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
-</code>
+
+  11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310
+  64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
 
 forth, join partial paths:
-<code>
-11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310/64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
-</code>
+
+  11302/46187/26879/50831/63899/17724/7472/16692/4930/11632/25731/49056/63882/24200/25190/59310/64734/11054/56229/27636/2144/8119/8702/39772/13197/4334/17054/41039/44629/4534/36799/36793
 
 fifth, compute child public key:
-<code>
-xpub7EtARQ7EPnCLNDWPy4QDJn2gyJViLzDiZF3VLeZeUQAMiq21GWvtSmnutwWv6sfEbWNJQukYgMz2GLyiWpWC2AbLSziz345gDwVDigN4EBE
-</code>
+
+  xpub7EtARQ7EPnCLNDWPy4QDJn2gyJViLzDiZF3VLeZeUQAMiq21GWvtSmnutwWv6sfEbWNJQukYgMz2GLyiWpWC2AbLSziz345gDwVDigN4EBE
+
 
 lastly, compute address:
-<code>
-19gcjDDzBoDBAieh9kZvFQFSbcLWkcpoVo
-</code>
+
+  19gcjDDzBoDBAieh9kZvFQFSbcLWkcpoVo
+
 
 verification example 1 (negative test):
 
 As an input, we have a contract that consists two documents, below are contents:
 
-document 1:
-<code>
-baz
-</code>
+  document 1:
+  baz
 
 first, apply the hash function:
 
-<code>
-baa5a0964d3320fbc0c6a922140453c8513ea24ab8fd0577034804a967248096
-</code>
+  baa5a0964d3320fbc0c6a922140453c8513ea24ab8fd0577034804a967248096
 
 second, compute the partial derivation path:
-<code>
-47781/41110/19763/8443/49350/43298/5124/21448/20798/41546/47357/1399/840/1193/26404/32918
-</code>
+
+  47781/41110/19763/8443/49350/43298/5124/21448/20798/41546/47357/1399/840/1193/26404/32918
+
 
 third, compute address:
-<code>
-16yfhaGao2QCJKwmMxVbPYkSnts25iLaza
-</code>
 
-Address matching failed as expected, verification will only succeed if we use the same documents that we use for the address generation.
+  16yfhaGao2QCJKwmMxVbPYkSnts25iLaza
+
+
+Address matching failed as expected, verification operation will succeed only if we use identical documents to ones that have been used in the contract address generation.
 
 ==Reference==
 

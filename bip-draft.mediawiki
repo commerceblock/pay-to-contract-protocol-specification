@@ -61,7 +61,7 @@ Hardened derivation is used at this level.
 
 ===Contract Base Derivation===
 
-Contact base is the the public part of address, which is for a given <code>coin_type</code> and <code>contract_id</code> is derived by following path:
+Contract base is the the public part of address, which is for a given <code>coin_type</code> and <code>contract_id</code> is derived by following path:
 
   m / 999' / coin_type' / contract_id'
 

@@ -70,15 +70,15 @@ Contract base is the the public part of address, which is for a given <code>coin
 
 For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, contract base extended public key denoted by contract_base<sub>pub</sub></code>, and cryptographic hash function denoted by <code>h</code>.
 
-1. compute cryptographic signatures for all contract documents, by applying the hash function.
+1. Compute cryptographic signatures for all contract documents, by applying the hash function.
 
   h(c1),...,h(cn)
 
-2. sort all signatures lexicographically.
+2. Sort all signatures lexicographically.
 
   s1,...,sn
 
-3. concatenate the sorted signatures and apply the hash function.
+3. Concatenate the sorted signatures and apply the hash function.
 
   h(s1+...+sn)
 

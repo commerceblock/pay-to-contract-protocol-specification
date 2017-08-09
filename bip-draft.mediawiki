@@ -191,15 +191,15 @@ As an input, we have a contract that consists of one document, below is content:
   document 1:
   baz
 
-1. apply the hash function.
+1. Apply the hash function.
 
   baa5a0964d3320fbc0c6a922140453c8513ea24ab8fd0577034804a967248096
 
-2. apply the hash function second time (list of one item).
+2. Apply the hash function second time (list of one item).
 
   3a08605829413ce0bf551b08d21e4a28dbda6e407f90eff1c448e839050c73a1
 
-3. compute the partial derivation path.
+3. Compute the partial derivation path.
 
   14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
 

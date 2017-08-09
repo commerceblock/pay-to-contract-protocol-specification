@@ -145,7 +145,7 @@ As an input, we have a contract that consists of two documents, below are conten
   document 2:
   foo
 
-1. apply the hash function:
+1. Apply the hash function:
 
   document 1:
   fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
@@ -153,12 +153,12 @@ As an input, we have a contract that consists of two documents, below are conten
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
 
 
-2. sort all signatures lexicographically:
+2. Sort all signatures lexicographically:
 
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
   fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 
-3. concatenate signatures and apply the hash function.
+3. Concatenate signatures and apply the hash function.
 
   concatenated hash:
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7aefcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9

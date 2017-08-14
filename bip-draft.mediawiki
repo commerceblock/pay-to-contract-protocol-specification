@@ -23,7 +23,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ==Motivation==
 
-A Bitcoin transaction represents a "real world" contract between two parties to transfer value. The payer may want cryptographic proof that the payee has agreed to the terms of this contract. Using the technique described in this BIP, an address can be provably derived from the terms of a contract in a completely hidden manner which does not bloat the UTXO. This schema can also be used as a foundation for a variety of protocols, such as advanced color coin schemes.
+A Bitcoin transaction represents a "real world" contract between two parties to transfer value. The payer may want cryptographic proof that the payee has agreed to the terms of this contract. Using the technique described in this BIP, an address can be provably derived from the terms of a contract in a completely hidden manner which does not bloat the UTXO. This scheme can also be used as a foundation for a variety of protocols, such as advanced color coin schemes.
 
 ==Specification==
 

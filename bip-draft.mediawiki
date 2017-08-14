@@ -221,7 +221,7 @@ As an input, we have a contract that consists of one document, below is content:
 
 Address matching failed as expected, verification operation will succeed only if we use identical documents to ones that have been used in the contract address generation.
 
-==Reference implementation==
+==Reference wallet implementation==
 
 Custom Copay implementation : https://github.com/commerceblock/copay ([[https://github.com/commerceblock/copay/pull/1|pull_request]])
 

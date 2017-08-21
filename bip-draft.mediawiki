@@ -19,9 +19,7 @@ This document describes a key derivation scheme based on Timo Hanke and Ilja Ger
 
 This BIP is a particular application of BIP-0043 and is based on BIP-0044.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
-
-This proposal is based on 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119. 
 
 ==Motivation==
 

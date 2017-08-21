@@ -15,7 +15,7 @@
 
 ==Abstract==
 
-This document describes a key derivation scheme based on Timo Hanke and Ilja Gerhardt paper "Homomorphic Payment Addresses and the Pay-to-Contract Protocol" aswell as hierarchical deterministic wallets as described in BIP-0032 (BIP32 from now on) and the "Purpose Field" in BIP-0043.
+Utilizing hierarchical deterministic wallets as described in BIP-0032 and the "Purpose Field" in BIP-0043, this document specifies the multiparty pay-to-contract key derivation scheme outlined by Timo Hanke and Ilja Gerhardt.[0]
 
 This BIP is a particular application of BIP-0043 and is based on BIP-0044.
 

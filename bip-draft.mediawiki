@@ -15,7 +15,7 @@
 
 ==Abstract==
 
-Utilizing hierarchical deterministic wallets as described in BIP-0032 and the "Purpose Field" in BIP-0043, this document specifies the multiparty pay-to-contract key derivation scheme outlined by Timo Hanke and Ilja Gerhardt.[0]
+Utilizing hierarchical deterministic wallets as described in BIP-0032 and the "Purpose Field" in BIP-0043, this document specifies the multiparty pay-to-contract key derivation scheme outlined by Ilja Gerhardt and Timo Hanke.[0]
 
 This BIP is a particular application of BIP-0043 and is based on BIP-0044.
 
@@ -24,6 +24,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ==Motivation==
 
 A Bitcoin transaction represents a "real world" contract between two parties to transfer value. The payer may want cryptographic proof that the payee has agreed to the terms of this contract. Using the technique described in this BIP, an address can be provably derived from the terms of a contract in a completely hidden manner which does not bloat the UTXO. This scheme can also be used as a foundation for a variety of protocols, such as advanced color coin schemes.
+
+Counterparties in a business interaction traditionally keep track of a payment with bills (invoices) and payment receipts. Delivery of a good is made by a merchant once the customer has signed the receipt, agreeing to pay for the items on the bill. Gerhardt and Hanke [0] formulate this interaction within the confines of the Bitcoin protocol using homomorphic payment addresses and the pay-to-contract protocol. The protocol is constructed in such a way that the payment itself provides proof of both who is being paid and for what.
 
 ==Specification==
 

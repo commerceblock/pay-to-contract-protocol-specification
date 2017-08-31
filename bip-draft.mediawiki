@@ -236,9 +236,9 @@ Similarliy to the input above, excpet this time we have a contract that consists
 
 Verification operation will succeed only if we use identical documents to ones that have been used in the contract address generation.
 
-==Reference wallet implementation==
+==Reference implementations==
 
-* Custom Copay implementation : https://github.com/commerceblock/copay ([[https://github.com/commerceblock/copay/pull/1|pull_request]])
+* Reference wallet implementation, based on Copay project : https://github.com/commerceblock/copay ([[https://github.com/commerceblock/copay/pull/1|pull_request]])
 * Reference implementaion to Hash to Partial Derivation Path Mapping in javascript ([[https://github.com/commerceblock/pay-to-contract-lib/blob/master/lib/contract.js|https://github.com/commerceblock/pay-to-contract-lib]])
 
 ==Reference==

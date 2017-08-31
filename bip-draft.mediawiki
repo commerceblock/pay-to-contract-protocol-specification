@@ -19,7 +19,7 @@ Utilizing hierarchical deterministic wallets as described in BIP-0032 and the "P
 
 This BIP is a particular application of BIP-0043 and is based on BIP-0044.
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119. 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
 
 ==Motivation==
 
@@ -39,24 +39,24 @@ The merchant must give this contract alongside a “payment base” extended pub
 We define the following levels in BIP32 path:
 
 <code>
-m / purpose' / coin_type' / contract_signature
+m / purpose' / coin_type' / contract_hash
 </code>
 
-<code>contract_signature</code> consists of mulitple levels.
+<code>contract_hash</code> consists of mulitple levels.
 
 Apostrophe in the path indicates that BIP32 hardened derivation is used.
 
 We define the following extended public keys:
 
-Payment base denoated as <code>payment_base</code>:
+Payment base denoted as <code>payment_base</code>:
 
     m / purpose' / coin_type'
 
-Payment address denoated as <code>payment_address</code>:
+Payment address denoted as <code>payment_address</code>:
 
-    m / purpose' / coin_type' / contract_signature
+    m / purpose' / coin_type' / contract_hash
     or
-    m / payment_base / contract_signature
+    m / payment_base / contract_hash
 
 Each level has special meaning described in the chapters below.
 
@@ -80,25 +80,25 @@ Hardened derivation is used at this level.
 
 For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, payment base extended public key denoted by <code>payment_base</code>, and cryptographic hash function denoted by <code>h</code>.
 
-1. Compute cryptographic signatures for all contract documents, by applying the hash function.
+1. Compute cryptographic hashes for all contract documents, by applying the hash function.
 
   h(c1),...,h(cn)
 
 2. Sort all signatures lexicographically.
 
-  s1,...,sn
+  hash_1,...,hash_n
 
-3. Concatenate the sorted signatures and apply the hash function.
+3. Concatenate the sorted hashes and apply the hash function.
 
-  h(s1+...+sn)
+  h(hash_1+...+hash_n)
 
-4. Compute a partial BIP32 derivation path from the combined signature s<sub>all</sub> as defined in Hash to Partial Derivation Path Mapping procedure below.
+4. Compute a partial BIP32 derivation path from the combined hash as defined in Hash to Partial Derivation Path Mapping procedure below.
 
-  contract_signature
+  contract_hash
 
-5. Prepend <code>payment_base</code> to contract_signature derivation path.
+5. Prepend <code>payment_base</code> to contract_hash derivation path.
 
-  payment_base / contract_signature
+  payment_base / contract_hash
 
 6. Compute public extended key from the derivation path in step 5.
 
@@ -114,9 +114,9 @@ For a given Bitcoin address, <code>payment_base</code> extended public key, cont
 
 ===Redemption===
 
-The merchant is able to construct the address locally using the method described in the Payment Address Generation section.
+The merchant is able to construct the private key offline using the method described in the Payment Address Generation section.
 The merchant should actively monitor the blockchain for the payment to the payment address.
-Because the address is generated from the contract base and the contract, the merchant must implicitly agree to those terms in order to spend the funds.
+Because the address is generated from the payment base and the contract, the merchant must implicitly agree to those terms in order to spend the funds.
 The act of making the payment to that address thus serves as a receipt for the customer.
 
 ===Hash to Partial Derivation Path Mapping===
@@ -166,23 +166,23 @@ As an input, we have a contract that consists of two documents, below are conten
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
 
 
-2. Sort all signatures lexicographically:
+2. Sort all hashes lexicographically:
 
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae
   fcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
 
-3. Concatenate signatures and apply the hash function.
+3. Concatenate hashes and apply the hash function.
 
   concatenated hash:
   2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7aefcde2b2edba56bf408601fb721fe9b5c338d10ee429ea04fae5511b68fbf8fb9
-  combined signature:
+  combined hash:
   ec321de56af3b66fb49e89cfe346562388af387db689165d6f662a3950286a57
 
-4. Compute the partial BIP32 derivation path of the combined signature.
+4. Compute the partial BIP32 derivation path of the combined hash.
 
   60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
 
-5. Prepend <code>payment_base</code> to <code>contract_signature</code> derivation path.
+5. Prepend <code>payment_base</code> to <code>contract_hash</code> derivation path.
 
   contract_base_pub/60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
   or
@@ -216,7 +216,7 @@ Similarliy to the input above, excpet this time we have a contract that consists
 
   14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
 
-4. Prepend contract_base<sub>pub</sub> to contract_signature derivation path.
+4. Prepend contract_base<sub>pub</sub> to contract_hash derivation path.
 
   contract_base_pub/14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
   or

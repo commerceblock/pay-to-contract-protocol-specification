@@ -27,13 +27,35 @@ A Bitcoin transaction represents a "real world" contract between two parties to 
 
 ==Specification==
 
+This key derivation scheme requires two parties: a payer (customer) and a payee (merchant).
+The customer submits to the merchant a purchase request, specifying what goods/services they would like to buy.
+From the purchase request the merchant constructs an invoice (contract), specifying the billable items and total amount to be paid.
+The merchant must give this contract alongside a “payment base” extended public key to the customer.
+
 We define the following levels in BIP32 path:
 
 <code>
-m / purpose' / coin_type' / contract_id' / *
+m / purpose' / coin_type' / contract_signature
 </code>
 
+<code>contract_signature</code> consists of mulitple levels.
 Apostrophe in the path indicates that BIP32 hardened derivation is used.
+
+We define the following extended public keys:
+
+Payment base denoated as <code>payment_base</code>:
+
+<code>
+m / purpose' / coin_type'
+</code>
+
+Payment address denoated as <code>payment_address</code>:
+
+<code>
+m / purpose' / coin_type' / contract_signature
+or
+m / payment_base / contract_signature
+</code>
 
 Each level has special meaning described in the chapters below.
 
@@ -53,22 +75,9 @@ The coin type field is identical to the same field in BIP-0044.
 
 Hardened derivation is used at this level.
 
-===Contract Id===
+===Payment Address Generation===
 
-Contract id is an arbitrary number within the valid range of indices as defined in BIP32.
-
-Hardened derivation is used at this level.
-
-===Contract Base Derivation===
-
-Contract base is the the public part of address, which is for a given <code>coin_type</code> and <code>contract_id</code> is derived by following path:
-
-  m / 999' / coin_type' / contract_id'
-
-
-===Contract Address Generation===
-
-For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, contract base extended public key denoted by contract_base<sub>pub</sub></code>, and cryptographic hash function denoted by <code>h</code>.
+For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, payment base extended public key denoted by <code>payment_base</code>, and cryptographic hash function denoted by <code>h</code>.
 
 1. Compute cryptographic signatures for all contract documents, by applying the hash function.
 
@@ -86,31 +95,36 @@ For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, cont
 
   contract_signature
 
-5. Prepend contract_base<sub>pub</sub> to contract_signature derivation path.
+5. Prepend <code>payment_base</code> to contract_signature derivation path.
 
-  contract_base_pub / contract_signature
-  or
-  m / 999' / coin_type' / contract_id' / contract_signature
+  payment_base / contract_signature
 
 6. Compute public extended key from the derivation path in step 5.
 
 7. Compute address of the public extended key (P2PKH) from step 6.
 
-===Contract Address Verification===
+===Payment Address Verification===
 
-For a given Bitcoin address, contract base extended public key denoted by contract_base<sub>pub</sub>, contract documents denoted by c<sub>1</sub>,...,c<sub>n</sub>, and cryptographic hash function denoted by <code>h</code>, we can verify the integrity of the address by the following steps:
+For a given Bitcoin address, <code>payment_base</code> extended public key, contract documents denoted by c<sub>1</sub>,...,c<sub>n</sub>, and cryptographic hash function denoted by <code>h</code>, we can verify the integrity of the address by the following steps:
 
 1. Compute contract address from the given inputs as described in Contract Address Generation section.
 
 2. Compare the computed address from step 1 with the given Bitcoin address as an input.
 
+===Redemption===
+
+The merchant is able to construct the address locally using the method described in the Payment Address Generation section.
+The merchant should actively monitor the blockchain for the payment to the payment address.
+Because the address is generated from the contract base and the contract, the merchant must implicitly agree to those terms in order to spend the funds.
+The act of making the payment to that address thus serves as a receipt for the customer.
+
 ===Hash to Partial Derivation Path Mapping===
 
 At this section, we define hash to partial BIP32 derivation path mapping procedure that maps between an arbitrary hex number to a partial BIP32 derivation path.
 
-For a given number, do the following:
+For a given hex number, do the following:
 
-1. Partition the number into parts, each part length should be 16.
+1. Partition the number into parts, each part length is 16 digits.
 
 2. Convert each part to integer in decimal format.
 

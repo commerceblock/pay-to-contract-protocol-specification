@@ -32,9 +32,8 @@ This scheme is based on the foundations of BIP-0032, providing a consistent way 
 ==Specification==
 
 This key derivation scheme requires two parties: a payer (customer) and a payee (merchant).
-The customer submits to the merchant a purchase request, specifying what goods/services they would like to buy.
-From the purchase request the merchant constructs an invoice (contract), specifying the billable items and total amount to be paid.
-The merchant must give this contract alongside a “payment base” extended public key to the customer.
+The customer submits to the merchant a purchase request, specifying what goods/services they would like to buy. From the purchase request the merchant constructs an invoice (contract), specifying the billable items and total amount to be paid.
+The merchant must give this contract alongside a “payment base” extended public key to the customer. Given this information, the customer will be able to fulfill the contract by generating the public key of the payment address associated with the contract and the payment base and sending the funds there.
 
 We define the following levels in BIP32 path:
 

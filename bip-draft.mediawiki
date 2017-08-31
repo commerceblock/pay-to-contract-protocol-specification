@@ -39,6 +39,7 @@ m / purpose' / coin_type' / contract_signature
 </code>
 
 <code>contract_signature</code> consists of mulitple levels.
+
 Apostrophe in the path indicates that BIP32 hardened derivation is used.
 
 We define the following extended public keys:
@@ -53,7 +54,9 @@ Payment address denoated as <code>payment_address</code>:
 
 <code>
 m / purpose' / coin_type' / contract_signature
+
 or
+
 m / payment_base / contract_signature
 </code>
 
@@ -124,7 +127,7 @@ At this section, we define hash to partial BIP32 derivation path mapping procedu
 
 For a given hex number, do the following:
 
-1. Partition the number into parts, each part length is 16 digits.
+1. Partition hex number into parts, each part length is 4 chars.
 
 2. Convert each part to integer in decimal format.
 
@@ -138,19 +141,17 @@ For the following given inputs:
   xprv9s21ZrQH143K2JF8RafpqtKiTbsbaxEeUaMnNHsm5o6wCW3z8ySyH4UxFVSfZ8n7ESu7fgir8imbZKLYVBxFPND1pniTZ81vKfd45EHKX73
   coin type:
   0
-  contract id:
-  7777777
 
-we can compute contract base as follows:
+we can compute payment base as follows:
 
-  contract base derivation path:
-  m/999'/0'/7777777'
+  payment base derivation path:
+  m/999'/0'
   contract base public extended key:
-  xpub6CMCS9rY5GKdkWWyoeXEbmJmxGgDcbihofyARxucufdw7k3oc1JNnniiD5H2HynKBwhaem4KnPTue6s9R2tcroqkHv7vpLFBgbKRDwM5WEE
+  xpub6A7Bkv1CFa275xd2vyheGLS1NX8zNizxU82ufcL3fnwnhS7DBpruR16oSFZGUQVtJNEjghCe3ZdPManUWCZFJo6t5U98KC2cYMpXtqNCwi3
 
 In the below examples, we are going to use SHA256 as a cryptographic hash function, and the above contract base public key.
 
-contract address generation:
+payment address generation:
 
 As an input, we have a contract that consists of two documents, below are contents:
 
@@ -183,24 +184,24 @@ As an input, we have a contract that consists of two documents, below are conten
 
   60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
 
-5. Prepend contract_base<sub>pub</sub> to contract_signature derivation path.
+5. Prepend <code>payment_base</code> to <code>contract_signature</code> derivation path.
 
   contract_base_pub/60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
   or
-  m/999'/0'/7777777'/60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
+  m/999'/0'/60466/7653/27379/46703/46238/35279/58182/22051/34991/14461/46729/5725/28518/10809/20520/27223
 
 6. Compute public extended key.
 
-  xpub6j7Ls3F4HMsoKJGVTHxTaJsqTEf6sqRtBYmFFLWcwj2oZ4erMtL7bxfNykbEGD7s11UbkUbSNwcKths4p2JuDmmzBzwEGMW7ZQpy9Y4pPrR
+  xpub6h8197UZpVMsYirUuHZUDbn8d8dewqW6UkZiXFNRf6WsvkgDsJQN5Atn8PUExFmyofccfoY6dMWqb9SpnJ5HDibi6kKbq931Z531ELCXHTn
 
 7. Compute address of the public extended key (P2PKH).
 
-  1F4eY8QQUjz5KFJHFmEAxpPUgYj2H3AtBE
+  1LeYXs63uVSDu2XSb82xdEc7RumohCpB7Q
 
 
 verification example 1 (negative test):
 
-As an input, we have a contract that consists of one document, below is content:
+Similarliy to the input above, excpet this time we have a contract that consists of one document, below is content:
 
   document 1:
   baz
@@ -221,23 +222,24 @@ As an input, we have a contract that consists of one document, below is content:
 
   contract_base_pub/14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
   or
-  m/999'/0'/7777777'/14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
+  m/999'/0'/14856/24664/10561/15584/48981/6920/53790/18984/56282/28224/32656/61425/50248/59449/1292/29601
 
 5. Compute public extended key.
 
-  xpub6ih31Zs8aCKfcSTud4aii4BZNS5BaVhq5z2QC6WCQnSqdFFQKUHYCEqbr7WGAKSxwcnGwSkpumZwDTZQzKSirCLPM6qtqvPMVCRwy1R8E5V
+  xpub6gvNX6yBEaBu5nGg9rrtEQgSgvAL5vtcbD8MpCfQgd1Wzuga8Kk3bJkhpTzDWvsx5sLj65UQvQaAgW34SwnGBEmxLvWDshBgPyJstd6RQdB
 
 7. Compute address of the public extended key (P2PKH).
 
-  1BuK3k14woP623Jyxow9QNhKptcvgd9Rwp
+  1JwnGxLhT9K6RbUsWcjL2mtmpPEHsLFvXG
 
-8. Compare the address from step 7 with the given address as an input.
+8. As expected the address doesn't match the Bitcoin address from the last example <code>1LeYXs63uVSDu2XSb82xdEc7RumohCpB7Q</code>.
 
-Address matching failed as expected, verification operation will succeed only if we use identical documents to ones that have been used in the contract address generation.
+Verification operation will succeed only if we use identical documents to ones that have been used in the contract address generation.
 
 ==Reference wallet implementation==
 
 Custom Copay implementation : https://github.com/commerceblock/copay ([[https://github.com/commerceblock/copay/pull/1|pull_request]])
+Reference implementaion to Hash to Partial Derivation Path Mapping in javascript https://github.com/commerceblock/pay-to-contract-lib/blob/master/lib/contract.js ([[https://github.com/commerceblock/pay-to-contract-lib/blob/master/lib/contract.js]])
 
 ==Reference==
 

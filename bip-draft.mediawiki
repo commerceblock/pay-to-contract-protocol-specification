@@ -84,7 +84,7 @@ For a given contract documents denoted by c<sub>1</sub> ,...,c<sub>n</sub>, paym
 
   h(c1),...,h(cn)
 
-2. Sort all signatures lexicographically.
+2. Sort all hashes lexicographically.
 
   hash_1,...,hash_n
 

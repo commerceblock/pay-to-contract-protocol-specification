@@ -46,19 +46,13 @@ We define the following extended public keys:
 
 Payment base denoated as <code>payment_base</code>:
 
-<code>
-m / purpose' / coin_type'
-</code>
+    m / purpose' / coin_type'
 
 Payment address denoated as <code>payment_address</code>:
 
-<code>
-m / purpose' / coin_type' / contract_signature
-
-or
-
-m / payment_base / contract_signature
-</code>
+    m / purpose' / coin_type' / contract_signature
+    or
+    m / payment_base / contract_signature
 
 Each level has special meaning described in the chapters below.
 
